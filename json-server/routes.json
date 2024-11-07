@@ -1,0 +1,17 @@
+{
+    "/students/list": "/students",
+    "/students/get/:id": "/students/:id",
+    "/students/create": "/students",
+    "/students/update/:id": "/students/:id",
+    "/students/delete/:id": "/students/:id",
+    "/courses/list": "/courses",
+    "/courses/get/:id": "/courses/:id",
+    "/courses/create": "/courses",
+    "/courses/update/:id": "/courses/:id",
+    "/courses/delete/:id": "/courses/:id",
+    "/studentCourses/list": "/studentCourses",
+    "/studentCourses/get/:id": "/studentCourses/:id",
+    "/studentCourses/create": "/studentCourses",
+    "/studentCourses/update/:id": "/studentCourses/:id",
+    "/studentCourses/delete/:id": "/studentCourses/:id"
+}

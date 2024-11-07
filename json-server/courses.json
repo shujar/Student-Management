@@ -1,0 +1,8 @@
+[
+    { "id": 1, "courseName": "Foundations of Accounting and Valuation", "courseNumber": "ACCT 270" },
+    { "id": 2, "courseName": "Linear Algebra with Applications", "courseNumber": "AMTH 222" },
+    { "id": 3, "courseName": "Discrete Mathematics", "courseNumber": "AMTH 244" },
+    { "id": 4, "courseName": "Introduction to Computing and Programming", "courseNumber": "CSPC 100" },
+    { "id": 5, "courseName": "Quantitative Foundations of Microeconomics", "courseNumber": "ECON 108" },
+    { "id": 6, "courseName": "Fundamentals of Physics", "courseNumber": "PHYS 200" }
+]

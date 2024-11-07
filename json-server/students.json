@@ -1,0 +1,8 @@
+[
+    { "id": 1, "firstName": "Alice", "lastName": "Malone" },
+    { "id": 2, "firstName": "Andy", "lastName": "Barns" },
+    { "id": 3, "firstName": "Bernard", "lastName": "Arnold" },
+    { "id": 4, "firstName": "Cindy", "lastName": "Crawford" },
+    { "id": 5, "firstName": "Diane", "lastName": "Williams" },
+    { "id": 6, "firstName": "Ella", "lastName": "Smith" }
+]
