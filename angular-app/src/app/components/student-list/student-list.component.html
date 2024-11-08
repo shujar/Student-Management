@@ -1,0 +1,18 @@
+<div class="students">
+    @for(s of students; track $index) {
+        <div class="student-card">
+            <div class="student-info">
+            <label>Student ID:</label>
+            <span>{{s.id}}</span>
+            </div>
+            <div class="student-info">
+            <label>First Name:</label>
+            <span>{{s.firstName}}</span>
+            </div>
+            <div class="student-info">
+            <label>Last Name:</label>
+            <span>{{s.lastName}}</span>
+            </div>
+        </div>
+    }
+</div>

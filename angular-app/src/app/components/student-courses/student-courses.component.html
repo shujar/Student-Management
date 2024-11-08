@@ -1,0 +1,22 @@
+<div class="students-courses">
+    @for(sc of studentCourses; track sc.student.id) {
+        <div class="student-card">
+            <div class="student-info">
+                <label>Student:</label>
+                <span>{{sc.student.firstName}} {{sc.student.lastName}}</span>
+            </div>
+            @if(sc.courses.length > 0) {
+                <div class="course-info">
+                    <h4>Courses</h4>
+                    <div class="course-list">
+                        @for(course of sc.courses; track course.id) {
+                            <div class="course">
+                                [{{course.courseNumber}}] - {{course.courseName}}
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
