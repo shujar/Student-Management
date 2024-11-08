@@ -1,0 +1,26 @@
+.students-courses {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.student-card {
+    display: flex;
+    flex-direction: column;
+
+    & .student-info {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+
+    }
+
+    & .course-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    & h4 {
+        margin: 0;
+    }
+}

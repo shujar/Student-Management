@@ -1,0 +1,16 @@
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    & button {
+        height: 25px;
+        min-width: 100px;
+    }
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

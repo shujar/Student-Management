@@ -1,0 +1,18 @@
+.students {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.student-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-self: baseline;
+
+    & .student-info {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+}
