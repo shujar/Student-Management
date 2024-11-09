@@ -87,6 +87,6 @@ export class StudentFormComponent implements OnInit {
   }
 
   cancelForm() {
-    this.router.navigate(['/students']);
+    this.router.navigate(['/students'], { skipLocationChange: true });
   }
 }
