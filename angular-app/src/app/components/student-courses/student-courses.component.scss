@@ -20,6 +20,10 @@
             display: flex;
             flex-direction: row;
             gap: 5px;
+            
+            & label {
+                font-weight: bold;
+            }
         }
 
         & .student-controls {
@@ -46,9 +50,20 @@
 
     & h4 {
         margin: 0;
+        text-decoration: underline;
     }
 }
 
 .delete-button {
     height: 25px;
+}
+
+.controls {
+    display: flex;
+    gap: 5px;
+    
+    & button {
+        min-width: 60px;
+        height: 25px;
+    }
 }

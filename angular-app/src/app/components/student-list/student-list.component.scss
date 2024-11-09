@@ -19,14 +19,14 @@
         gap: 5px;
         align-items: center;
     }
+}
 
-    & .controls {
-        display: flex;
-        gap: 5px;
-        
-        & button {
-            min-width: 60px;
-            height: 25px;
-        }
+.controls {
+    display: flex;
+    gap: 5px;
+    
+    & button {
+        min-width: 60px;
+        height: 25px;
     }
 }
