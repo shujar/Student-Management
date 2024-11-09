@@ -16,6 +16,11 @@ export interface StudentCourses {
     courseId: number
 }
 
+export interface StudentCourseData {
+    student: Student
+    courses: Course[]
+}
+
 export interface StudentCoursesExpanded {
     id?: number
     studentId: number,
