@@ -1,4 +1,7 @@
 <div class="students">
+    <div class="controls">
+        <button (click)="addNewStudent()">Add New</button>
+    </div>
     @for(s of students; track $index) {
         <div class="student-card">
             <div class="student-info">

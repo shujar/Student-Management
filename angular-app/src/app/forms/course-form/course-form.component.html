@@ -1,0 +1,37 @@
+<form class="course-form" [formGroup]="courseForm" (ngSubmit)="onSubmit()"> 
+    <div class="form-inputs">
+        @if(errorMessage) {
+            <div class="error">{{ errorMessage }}</div>
+        }
+        <div>
+          <label>Course Number:</label>
+          <input formControlName="courseNumber" trimLeadingWhitespace />
+          @if(courseForm.get('courseNumber')?.hasError('whitespaceError')) {
+            <div>Course number cannot be empty!</div>
+          } @else if(courseForm.get('courseNumber')?.invalid && courseForm.get('courseNumber')?.touched) { 
+              <div>
+                Course Number is required.
+              </div>
+          }
+        </div>
+    
+        <div>
+            <label>Course Name:</label>
+            <input formControlName="courseName" trimLeadingWhitespace />
+            @if(courseForm.get('courseName')?.hasError('whitespaceError')) {
+              <div>Course name cannot be empty!</div>
+            } @else if(courseForm.get('courseName')?.invalid && courseForm.get('courseName')?.touched) { 
+                <div>
+                  Course Name is required.
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="form-control-buttons">
+        <button type="submit" [disabled]="courseForm.invalid">
+          {{ isEditMode ? 'Update' : 'Add' }} Course
+        </button>
+        <button (click)="cancelForm()">Cancel</button>
+    </div>
+</form>

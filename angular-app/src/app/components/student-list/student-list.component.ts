@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../models/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
@@ -13,10 +14,18 @@ export class StudentListComponent implements OnInit {
   students: Student[] = [];
   error: string | null = null;
   
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getStudents();
+  }
+
+  addNewStudent() {
+    // navigate to Student Form in create mode
+    this.router.navigate(["/students/add"], { skipLocationChange: true })
   }
 
   getStudents(): void {

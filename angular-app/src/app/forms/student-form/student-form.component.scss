@@ -1,0 +1,15 @@
+.student-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-control-buttons {
+    display: flex;
+    gap: 15px;
+
+    & button {
+        min-width: 100px;
+        height: 25px;
+    }
+}
