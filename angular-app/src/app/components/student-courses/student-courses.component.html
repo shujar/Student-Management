@@ -1,4 +1,7 @@
 <div class="students-courses">
+    <div class="controls">
+        <button (click)="registerStudentCourse()">Add New</button>
+    </div>
     @for(sc of studentCourses; track sc.student.id) {
         <div class="student-card">
             <div class="student-info">

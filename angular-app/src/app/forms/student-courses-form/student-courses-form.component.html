@@ -1,0 +1,34 @@
+<form class="student-course-form" [formGroup]="studentCourseForm" (ngSubmit)="onSubmit()"> 
+    <div class="form-inputs">
+        <div>
+            <label>Student:</label>
+            <select formControlName="student" >
+                @for(student of students; track student.id) {
+                    <option value="{{student.id}}">{{student.firstName}} {{student.lastName}}</option>
+                }
+            </select>
+          @if(studentCourseForm.get('student')?.invalid && studentCourseForm.get('student')?.touched) { 
+              <div>Student is required.</div>
+          }
+        </div>
+    
+        <div>
+            <label>Course:</label>
+            <select formControlName="course" >
+                @for(course of filterStudentCourses(); track course.id) {
+                    <option value="{{course.id}}">[{{course.courseNumber}}] {{course.courseName}}</option>
+                }
+            </select>
+            @if(studentCourseForm.get('course')?.invalid && studentCourseForm.get('course')?.touched) { 
+                <div>Course is required.</div>
+            }
+        </div>
+    </div>
+    
+    <div class="form-control-buttons">
+        <button type="submit" [disabled]="studentCourseForm.invalid">
+          Register Course
+        </button>
+        <button (click)="cancelForm()">Cancel</button>
+    </div>
+</form>

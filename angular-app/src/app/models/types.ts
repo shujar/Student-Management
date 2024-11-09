@@ -1,23 +1,28 @@
 export interface Student {
-    id: number;
+    id?: number;
     firstName: string;
     lastName: number;
 }
 
 export interface Course {
-    id: number;
+    id?: number;
     courseName: string;
     courseNumber: string;
 }
 
 export interface StudentCourses {
-    id: number
+    id?: number
     studentId: number
     courseId: number
 }
 
+export interface StudentCourseData {
+    student: Student
+    courses: Course[]
+}
+
 export interface StudentCoursesExpanded {
-    id: number
+    id?: number
     studentId: number,
     courseId: number,
     course: Course,

@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Course, Student, StudentCoursesExpanded } from '../../models/types';
+import { StudentCourseData, StudentCoursesExpanded } from '../../models/types';
 import { StudentCourseService } from '../../services/student-course.service';
-
-interface StudentCourseData {
-  student: Student
-  courses: Course[]
-}
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-courses',
@@ -18,18 +14,23 @@ export class StudentCoursesComponent implements OnInit {
   studentCourses: StudentCourseData[] = [];
   error: string | null = null;
   
-  constructor(private studentCourseService: StudentCourseService) { }
+  constructor(
+    private studentCourseService: StudentCourseService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getStudentCourses();
   }
 
+  registerStudentCourse() {
+    this.router.navigate(['/student-courses/add'], { skipLocationChange: true });
+  }
+
   getStudentCourses(): void {
     this.studentCourseService.getAllStudentCourses().subscribe({
       next: (data) => {
-        // this.studentCourses = data;
         this.studentCourses = this.mergeByStudentId(data);
-        console.log("What is data: ", this.studentCourses);
         this.error = null;
       },
       error: (err) => {
