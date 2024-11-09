@@ -22,7 +22,7 @@ export interface StudentCourseData {
 }
 
 export interface StudentCoursesExpanded {
-    id?: number
+    id: number
     studentId: number,
     courseId: number,
     course: Course,
