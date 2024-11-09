@@ -1,0 +1,30 @@
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    & .tabs {
+        display: flex;
+        gap: 1px;
+    }
+
+    & .tab {
+        padding: 8px;
+        min-width: 80px;
+        text-align: center;
+        background: #e2e2e2;
+        user-select: none;
+
+        &:hover {
+            background-color: #bababa;
+        }
+    }
+
+    & .tab-selected {
+        background-color: #bababa;
+    }
+
+    & .tab-content {
+        padding: 2px;
+    }
+}
