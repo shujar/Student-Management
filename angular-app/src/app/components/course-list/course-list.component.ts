@@ -39,4 +39,29 @@ export class CourseListComponent implements OnInit {
       }
     });
   }
+
+  editCourse(id: number) {
+    if(id < 0) {
+      return;
+    }
+    
+    // route to edit form for selected course
+    this.router.navigate([`/courses/edit/${id}`], { skipLocationChange: false });
+  }
+
+  deleteCourse(id: number) {
+    if(id < 0) {
+      return;
+    }
+
+    this.courseService.deleteCourse(id).subscribe({
+      next: () => {
+        this.error = null;
+        this.getCourses();
+      }, 
+      error: (err) => {
+        this.error = err;
+      }
+    });
+  }
 }

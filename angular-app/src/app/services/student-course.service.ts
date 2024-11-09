@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, forkJoin, Observable, throwError } from 'rxjs';
 import { StudentCourses, StudentCoursesExpanded } from '../models/types';
 
 @Injectable({
@@ -30,8 +30,17 @@ export class StudentCourseService {
   }
 
   // Delete a student course
-  deleteStudentCourse(studentId: number, courseId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/?studentId=${studentId}&courseId=${courseId}`).pipe(catchError(this.handleError));
+  deleteStudentCourse(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+  }
+
+  // Delete multiple student courses
+  deleteBatchStudentCourses(ids: number[]): Observable<void[]> {
+    // Create an array of DELETE requests, one for each ID
+    const deleteRequests = ids.map(id => this.deleteStudentCourse(id));
+
+    // execute all DELETE requests in parallel
+    return forkJoin(deleteRequests);
   }
 
   // Error handling

@@ -12,6 +12,7 @@ export const routes: Routes = [
     { path: "students/edit/:id", component: StudentFormComponent },
     { path: "courses", component: CourseListComponent },
     { path: "courses/add", component: CourseFormComponent },
+    { path: "courses/edit/:id", component: CourseFormComponent },
     { path: "student-courses", component: StudentCoursesComponent },
     { path: "student-courses/add", component: StudentCoursesFormComponent },
 ];

@@ -5,16 +5,12 @@
   @for(c of courses; track $index) {
       <div class="courses-card">
         <div class="courses-info">
-          <label>ID:</label>
-          <span>{{c.id}}</span>
-        </div>
-        <div class="courses-info">
-          <label>Course Name:</label>
+          <span>{{c.courseNumber}}</span>
           <span>{{c.courseName}}</span>
         </div>
-        <div class="courses-info">
-          <label>Course Number:</label>
-          <span>{{c.courseNumber}}</span>
+        <div class="controls">
+          <button (click)="editCourse(c.id ?? -1)" class="edit-button">Edit</button>
+          <button (click)="deleteCourse(c.id ?? -1)" class="delete-button">Delete</button>
         </div>
       </div>
   }

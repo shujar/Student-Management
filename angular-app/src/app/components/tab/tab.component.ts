@@ -24,16 +24,16 @@ export class TabComponent implements OnInit {
   }
 
   selectTab(ev: Event | null, tab: TabOptions) {
-    // clear previous selected tab
+    // get previous selected tab
     let selTab = document.querySelectorAll(".tab-selected");
 
+    // clear any previous selected tabs
     selTab.forEach(x => {
-      console.log("Removing previous tab select: ", selTab);
       x.classList.remove("tab-selected");
     });
 
     if(ev) {
-      // set selected tab
+      // if click event, then the set selected tab
       let elem = ev.currentTarget as HTMLElement;
       elem.classList.add('tab-selected');
     } else {
@@ -44,6 +44,7 @@ export class TabComponent implements OnInit {
       }
     }
 
+    // route to content of selected tab
     if(TabOptions.STUDENTS === tab) {
       this.router.navigate(['/students']);
     } else if(TabOptions.COURSES === tab) {

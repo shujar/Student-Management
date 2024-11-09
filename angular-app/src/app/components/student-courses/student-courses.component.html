@@ -2,11 +2,16 @@
     <div class="controls">
         <button (click)="registerStudentCourse()">Add New</button>
     </div>
-    @for(sc of studentCourses; track sc.student.id) {
+    @for(sc of getCoursesByStudent(studentCourses); track sc.student.id) {
         <div class="student-card">
             <div class="student-info">
-                <label>Student:</label>
-                <span>{{sc.student.firstName}} {{sc.student.lastName}}</span>
+                <div class="student-name">
+                    <label>Student:</label>
+                    <span>{{sc.student.firstName}} {{sc.student.lastName}}</span>
+                </div>
+                <div class="student-controls">
+                    <button (click)="unregisterAllStudentCourses(sc.student.id ?? -1)" class="delete-button">Unregister All</button>
+                </div>
             </div>
             @if(sc.courses.length > 0) {
                 <div class="course-info">
@@ -14,7 +19,12 @@
                     <div class="course-list">
                         @for(course of sc.courses; track course.id) {
                             <div class="course">
-                                [{{course.courseNumber}}] - {{course.courseName}}
+                                <div class="course-name">
+                                    [{{course.courseNumber}}] - {{course.courseName}}
+                                </div>
+                                <div class="course-controls">
+                                    <button (click)="unregisterStudentCourse(sc.student.id ?? -1, course.id ?? -1)" class="delete-button">Unregister</button>
+                                </div>
                             </div>
                         }
                     </div>

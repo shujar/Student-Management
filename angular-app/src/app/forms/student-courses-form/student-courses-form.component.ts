@@ -122,6 +122,7 @@ export class StudentCoursesFormComponent {
   }
 
   cancelForm() {
-
+    this.studentCourseForm.reset();
+    this.router.navigate(['/student-courses'], { skipLocationChange: true });
   }
 }

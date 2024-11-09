@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './student-courses.component.scss'
 })
 export class StudentCoursesComponent implements OnInit {
-  studentCourses: StudentCourseData[] = [];
+  studentCourses: StudentCoursesExpanded[] = [];
   error: string | null = null;
   
   constructor(
@@ -30,7 +30,7 @@ export class StudentCoursesComponent implements OnInit {
   getStudentCourses(): void {
     this.studentCourseService.getAllStudentCourses().subscribe({
       next: (data) => {
-        this.studentCourses = this.mergeByStudentId(data);
+        this.studentCourses = data;
         this.error = null;
       },
       error: (err) => {
@@ -39,7 +39,7 @@ export class StudentCoursesComponent implements OnInit {
     });
   }
 
-  mergeByStudentId(data: StudentCoursesExpanded[]) {
+  getCoursesByStudent(data: StudentCoursesExpanded[]) {
     let newStudentList: StudentCourseData[] = []
 
     data.forEach(d => {
@@ -57,5 +57,43 @@ export class StudentCoursesComponent implements OnInit {
 
     return newStudentList;
   }
+
+  unregisterAllStudentCourses(studentId: number) {
+    // get all ids to remove for the given studentId
+    let ids = this.studentCourses.filter(x => x.student.id === studentId).map(x => x.id);
+
+    this.studentCourseService.deleteBatchStudentCourses(ids).subscribe({
+      next: () => {
+        this.getStudentCourses();
+      },
+      error: (err) => {
+        // TODO show error
+        console.log("Error unregistering all classes for student id: ", studentId, err);
+      }
+    });
+  }
   
+  unregisterStudentCourse(studentId: number, courseId: number) {
+    if(studentId < 0 || courseId < 0) {
+      return;
+    }
+
+    // get the Student Course table id from studentId and courseId
+    let studentCourseId = this.studentCourses.find(x => x.student.id === studentId && x.course.id === courseId)?.id;
+
+    if(!studentCourseId) {
+      //TODO show error, record not found
+      return;
+    }
+
+    this.studentCourseService.deleteStudentCourse(studentCourseId).subscribe({
+      next: () => {
+        this.getStudentCourses();
+      },
+      error: (err) => {
+        //TODO handle errors
+        console.log("Error unregistering student course: ", studentId, courseId, err);
+      }
+    })
+  } 
 }
