@@ -46,7 +46,7 @@ export class StudentListComponent implements OnInit {
     }
     
     // route to edit form for selected student
-    this.router.navigate([`/students/edit/${id}`], { skipLocationChange: true });
+    this.router.navigate([`/students/edit/${id}`], { skipLocationChange: false });
   }
 
   deleteStudent(id: number) {

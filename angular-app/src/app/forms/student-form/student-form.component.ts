@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { StudentService } from '../../services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrimLeadingWhitespaceDirective } from '../../directives/trim-leading-whitespace.directive';
+import { Student } from '../../models/types';
 
 @Component({
   selector: 'app-student-form',
@@ -15,6 +16,7 @@ import { TrimLeadingWhitespaceDirective } from '../../directives/trim-leading-wh
 export class StudentFormComponent implements OnInit {
   studentForm: FormGroup;
   isEditMode = false;
+  studentId: number = -1;
   errorMessage = '';
 
   constructor(
@@ -34,7 +36,8 @@ export class StudentFormComponent implements OnInit {
 
     if (id) {
       this.isEditMode = true;
-      this.loadStudent(parseInt(id));
+      this.studentId = parseInt(id);
+      this.loadStudent(this.studentId);
     }
   }
 
@@ -49,6 +52,13 @@ export class StudentFormComponent implements OnInit {
     })
   }
 
+  resetForm() {
+    this.studentForm.reset();
+    if(this.isEditMode) {
+      this.loadStudent(this.studentId);
+    }
+  }
+
   onSubmit() {
     const student = this.trimObjectStrings(this.studentForm.value);
 
@@ -59,9 +69,19 @@ export class StudentFormComponent implements OnInit {
       this.studentForm.get("lastName")?.setErrors({whitespaceError: 'true'});
     }
 
+    if(!this.studentForm.valid) {
+      return;
+    }
+
     // update database with new/modified student
     if (this.isEditMode) {
-      this.studentService.updateStudent(student).subscribe({
+      let editStudent: Student = {
+          id: this.studentId,
+          firstName: student.firstName,
+          lastName: student.lastName
+      }
+
+      this.studentService.updateStudent(editStudent).subscribe({
         next: () => this.router.navigate(['/students']),
         error: (err) => this.errorMessage = err
       });

@@ -45,8 +45,8 @@ export class CourseListComponent implements OnInit {
       return;
     }
     
-    // route to edit form for selected student
-    this.router.navigate([`/courses/edit/${id}`], { skipLocationChange: true });
+    // route to edit form for selected course
+    this.router.navigate([`/courses/edit/${id}`], { skipLocationChange: false });
   }
 
   deleteCourse(id: number) {

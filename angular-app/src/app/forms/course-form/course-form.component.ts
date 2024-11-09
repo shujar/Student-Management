@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CourseService } from '../../services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrimLeadingWhitespaceDirective } from '../../directives/trim-leading-whitespace.directive';
+import { Course } from '../../models/types';
 
 @Component({
   selector: 'app-course-form',
@@ -15,6 +16,7 @@ import { TrimLeadingWhitespaceDirective } from '../../directives/trim-leading-wh
 export class CourseFormComponent {
   courseForm: FormGroup;
   isEditMode = false;
+  courseId: number = -1;
   errorMessage = '';
 
   constructor(
@@ -34,7 +36,8 @@ export class CourseFormComponent {
 
     if (id) {
       this.isEditMode = true;
-      this.loadCourse(parseInt(id));
+      this.courseId = parseInt(id);
+      this.loadCourse(this.courseId);
     }
   }
 
@@ -49,6 +52,14 @@ export class CourseFormComponent {
     })
   }
 
+  resetForm() {
+    this.courseForm.reset();
+    
+    if(this.isEditMode) {
+      this.loadCourse(this.courseId);
+    }
+  }
+
   onSubmit() {
     const course = this.trimObjectStrings(this.courseForm.value);
     console.log("Course: ", course)
@@ -61,9 +72,19 @@ export class CourseFormComponent {
       this.courseForm.get("courseNumber")?.setErrors({whitespaceError: 'true'});
     }
 
+    if(!this.courseForm.valid) {
+      return;
+    }
+
     // update database with new/modified course
     if (this.isEditMode) {
-      this.courseService.updateCourse(course).subscribe({
+      let editCourse: Course = {
+        id: this.courseId,
+        courseName: course.courseName,
+        courseNumber: course.courseNumber
+      }
+
+      this.courseService.updateCourse(editCourse).subscribe({
         next: () => this.router.navigate(['/courses'], { skipLocationChange: true }),
         error: (err) => this.errorMessage = err
       });

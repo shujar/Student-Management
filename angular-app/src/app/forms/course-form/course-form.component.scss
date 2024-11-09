@@ -4,6 +4,12 @@
     gap: 10px;
 }
 
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .form-control-buttons {
     display: flex;
     gap: 15px;

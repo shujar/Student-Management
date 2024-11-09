@@ -3,25 +3,25 @@
         @if(errorMessage) {
             <div class="error">{{ errorMessage }}</div>
         }
-        <div>
+        <div class="form-input">
           <label>First Name:</label>
           <input formControlName="firstName" trimLeadingWhitespace />
           @if(studentForm.get('firstName')?.hasError('whitespaceError')) {
-            <div>First Name cannot be empty!</div>
+            <div class="error">First Name cannot be empty!</div>
           } @else if(studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched) { 
-              <div>
+              <div class="error">
                 First Name is required.
               </div>
           }
         </div>
     
-        <div>
+        <div class="form-input">
             <label>Last Name:</label>
             <input formControlName="lastName" trimLeadingWhitespace />
             @if(studentForm.get('lastName')?.hasError('whitespaceError')) {
-              <div>Last Name cannot be empty!</div>
+              <div class="error">Last Name cannot be empty!</div>
             } @else if(studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched) { 
-                <div>
+                <div class="error">
                   Last Name is required.
                 </div>
             }
@@ -29,9 +29,10 @@
     </div>
     
     <div class="form-control-buttons">
-        <button type="submit" [disabled]="studentForm.invalid">
-          {{ isEditMode ? 'Update' : 'Add' }} Course
+        <button type="submit" [disabled]="studentForm.invalid || studentForm.pristine">
+          {{ isEditMode ? 'Update' : 'Add' }} Student
         </button>
+        <button (click)="resetForm()" [disabled]="studentForm.pristine">Reset</button>
         <button (click)="cancelForm()">Cancel</button>
     </div>
 </form>
