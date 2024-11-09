@@ -39,4 +39,29 @@ export class StudentListComponent implements OnInit {
       }
     });
   }
+
+  editStudent(id: number) {
+    if(id < 0) {
+      return;
+    }
+    
+    // route to edit form for selected student
+    this.router.navigate([`/students/edit/${id}`], { skipLocationChange: true });
+  }
+
+  deleteStudent(id: number) {
+    if(id < 0) {
+      return;
+    }
+
+    this.studentService.deleteStudent(id).subscribe({
+      next: () => {
+        this.error = null;
+        this.getStudents();
+      }, 
+      error: (err) => {
+        this.error = err;
+      }
+    });
+  }
 }

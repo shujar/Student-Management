@@ -5,16 +5,12 @@
     @for(s of students; track $index) {
         <div class="student-card">
             <div class="student-info">
-            <label>Student ID:</label>
-            <span>{{s.id}}</span>
+                <label>Name:</label>
+                <span>{{s.firstName}} {{s.lastName}}</span>
             </div>
-            <div class="student-info">
-            <label>First Name:</label>
-            <span>{{s.firstName}}</span>
-            </div>
-            <div class="student-info">
-            <label>Last Name:</label>
-            <span>{{s.lastName}}</span>
+            <div class="controls">
+                <button (click)="editStudent(s.id ?? -1)" class="edit-button">Edit</button>
+                <button (click)="deleteStudent(s.id ?? -1)" class="delete-button">Delete</button>
             </div>
         </div>
     }

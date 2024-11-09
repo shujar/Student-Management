@@ -6,13 +6,23 @@
 
 .student-card {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    gap: 15px;
     align-self: baseline;
 
     & .student-info {
         display: flex;
         flex-direction: row;
         gap: 5px;
+    }
+
+    & .controls {
+        display: flex;
+        gap: 5px;
+        
+        & button {
+            min-width: 60px;
+            height: 25px;
+        }
     }
 }
