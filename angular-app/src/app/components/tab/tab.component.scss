@@ -2,17 +2,23 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    padding: 5px;
+    background-color: white;
 
     & .tabs {
         display: flex;
         gap: 1px;
+        
+        & :not(:last-child) {
+            border-right: 1px solid black;
+        }
     }
 
     & .tab {
         padding: 8px;
         min-width: 80px;
         text-align: center;
-        background: #e2e2e2;
+        background: #eeeeee;
         user-select: none;
 
         &:hover {
@@ -22,10 +28,5 @@
 
     & .tab-selected {
         background-color: #bababa;
-    }
-
-    & .tab-content {
-        padding: 2px;
-        align-self: baseline;
     }
 }
