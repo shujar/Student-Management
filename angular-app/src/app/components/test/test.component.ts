@@ -22,6 +22,6 @@ export class TestComponent {
   }
 
   showStudentCourses() {
-    this.router.navigate(['/student_courses'], { skipLocationChange: true });
+    this.router.navigate(['/student-courses'], { skipLocationChange: true });
   }
 }
