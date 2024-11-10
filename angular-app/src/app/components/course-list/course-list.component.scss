@@ -27,8 +27,34 @@
     display: flex;
     gap: 5px;
     
-    & button {
-        min-width: 60px;
-        height: 25px;
+    & .add-button {
+        background-color: rgb(241, 241, 241);
+        transition: 200ms ease-in-out background-color;
+        border: 0.5px solid black;
+        border-radius: 3px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgb(83, 251, 150);
+        }
     }
+
+    & .icon {
+        font-size: 25px;
+        transition: 150ms ease-in-out color;
+    }
+
+    & .edit-button:hover {
+        color: blue;
+        cursor: pointer;
+    }
+
+    & .delete-button:hover {
+        color: red;
+        cursor: pointer;
+    }
+}
+
+mat-icon {
+    font-size: 25px;
 }

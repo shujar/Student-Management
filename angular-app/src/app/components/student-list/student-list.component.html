@@ -1,6 +1,8 @@
 <div class="students">
     <div class="controls">
-        <button (click)="addNewStudent()">Add New</button>
+        <button class="add-button" matTooltip="Add Student" matTooltipPosition="below" matTooltipShowDelay="1000" (click)="addNewStudent()">
+            <mat-icon aria-hidden="false" aria-label="Add Student" fontIcon="add"/>
+        </button>
     </div>
     @for(s of students; track $index) {
         <div class="student-card">
@@ -9,8 +11,12 @@
                 <span>{{s.firstName}} {{s.lastName}}</span>
             </div>
             <div class="controls">
-                <button (click)="editStudent(s.id ?? -1)" class="edit-button">Edit</button>
-                <button (click)="deletePressed(s.id ?? -1)" class="delete-button">Delete</button>
+                 <a class="icon edit-button" matTooltip="Edit Student" matTooltipPosition="above" matTooltipShowDelay="1000"   (click)="editStudent(s.id ?? -1)">
+                    <mat-icon aria-hidden="false" aria-label="Edit Student" fontIcon="edit"/>
+                </a>
+                <a class="icon delete-button" matTooltip="Delete Student" matTooltipPosition="above" matTooltipShowDelay="1000"  (click)="deletePressed(s.id ?? -1)">
+                    <mat-icon aria-hidden="false" aria-label="Delete Student" fontIcon="delete_forever"/>
+                </a>
             </div>
         </div>
     }
