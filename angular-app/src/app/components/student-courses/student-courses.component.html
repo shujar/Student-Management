@@ -10,7 +10,7 @@
                     <span>{{sc.student.firstName}} {{sc.student.lastName}}</span>
                 </div>
                 <div class="student-controls">
-                    <button (click)="unregisterAllStudentCourses(sc.student.id ?? -1)" class="delete-button">Unregister All</button>
+                    <button (click)="handleUnregisterStudentPress(sc.student.id ?? -1)" class="delete-button">Unregister All</button>
                 </div>
             </div>
             @if(sc.courses.length > 0) {
@@ -23,7 +23,7 @@
                                     [{{course.courseNumber}}] - {{course.courseName}}
                                 </div>
                                 <div class="course-controls">
-                                    <button (click)="unregisterStudentCourse(sc.student.id ?? -1, course.id ?? -1)" class="delete-button">Unregister</button>
+                                    <button (click)="handleCourseUnregisterPress(sc.student.id ?? -1, course.id ?? -1)" class="delete-button">Unregister</button>
                                 </div>
                             </div>
                         }
@@ -31,5 +31,32 @@
                 </div>
             }
         </div>
+    }
+    @if(showConfirmation) {
+        <app-confirmation-modal (response)="handleConfirmResponse($event)">
+            <div class="confirmation-text">
+                <span>{{"Are you sure you want to unregister the student from the following course: "}}</span>
+                <div>
+                    <div><strong>Student:</strong> {{getUnregisterStudentCourse()}}</div>
+                    <div><strong>Course:</strong> {{getUnregisterCourse()}}</div>
+                </div>
+            </div>
+        </app-confirmation-modal>
+    }
+    @if(showStudentConfirmation) {
+        <app-confirmation-modal (response)="handleStudentConfirmResponse($event)">
+            <div class="confirmation-text">
+                <span>{{"Are you sure you want to unregister the student from the following courses: "}}</span>
+                <div>
+                    <div><strong>Student:</strong> {{getUnregisterStudent()}}</div>
+                    <div>
+                        <strong>Courses:</strong> 
+                        @for(cc of getAllUnregisterStudentCourses(); track cc.id) {
+                            <div>[{{cc.courseNumber}}] {{cc.courseName}}</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </app-confirmation-modal>
     }
 </div>

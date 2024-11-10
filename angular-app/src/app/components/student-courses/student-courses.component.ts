@@ -2,18 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { StudentCourseData, StudentCoursesExpanded } from '../../models/types';
 import { StudentCourseService } from '../../services/student-course.service';
 import { Router } from '@angular/router';
+import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: 'app-student-courses',
   standalone: true,
-  imports: [],
+  imports: [ConfirmationModalComponent],
   templateUrl: './student-courses.component.html',
   styleUrl: './student-courses.component.scss'
 })
 export class StudentCoursesComponent implements OnInit {
   studentCourses: StudentCoursesExpanded[] = [];
   error: string | null = null;
-  
+  unregisterId: number = -1;
+  showConfirmation: boolean = false;
+  showStudentConfirmation: boolean = false;
+
   constructor(
     private studentCourseService: StudentCourseService,
     private router: Router
@@ -73,16 +77,8 @@ export class StudentCoursesComponent implements OnInit {
     });
   }
   
-  unregisterStudentCourse(studentId: number, courseId: number) {
-    if(studentId < 0 || courseId < 0) {
-      return;
-    }
-
-    // get the Student Course table id from studentId and courseId
-    let studentCourseId = this.studentCourses.find(x => x.student.id === studentId && x.course.id === courseId)?.id;
-
-    if(!studentCourseId) {
-      //TODO show error, record not found
+  unregisterStudentCourse(studentCourseId: number) {
+    if(studentCourseId === -1) {
       return;
     }
 
@@ -92,8 +88,63 @@ export class StudentCoursesComponent implements OnInit {
       },
       error: (err) => {
         //TODO handle errors
-        console.log("Error unregistering student course: ", studentId, courseId, err);
+        console.log("Error unregistering student course: ", studentCourseId, err);
       }
     })
   } 
+
+  handleConfirmResponse(resp: boolean) {
+    this.showConfirmation = false;
+    
+    if(resp) {
+      this.unregisterStudentCourse(this.unregisterId);
+    }
+
+    this.unregisterId = -1;
+  }
+
+  handleCourseUnregisterPress(studentId: number, courseId: number) {
+    if(studentId === -1 || courseId === -1) {
+      return;
+    }
+
+    // find StudentCourse table id for studentId and courseId
+    let studentCourseId = this.studentCourses.find(x => x.student.id === studentId && x.course.id === courseId)?.id;
+    this.unregisterId = studentCourseId ?? -1;
+
+    this.showConfirmation = true;
+  }
+
+  handleUnregisterStudentPress(studentId: number) {
+    this.unregisterId = studentId;
+    this.showStudentConfirmation = true;
+  }
+
+  handleStudentConfirmResponse(resp: boolean) {
+    this.showStudentConfirmation = false;
+    if(resp) {
+      this.unregisterAllStudentCourses(this.unregisterId);
+    }
+    this.unregisterId = -1;
+  }
+
+  getUnregisterStudentCourse() {
+    let sc = this.studentCourses.find(x => x.id === this.unregisterId);
+    return `${sc?.student.firstName} ${sc?.student.lastName}`;
+  }
+
+  getUnregisterStudent() {
+    let sc = this.studentCourses.find(x => x.student.id === this.unregisterId);
+    return `${sc?.student.firstName} ${sc?.student.lastName}`;;
+  }
+
+  getAllUnregisterStudentCourses() {
+    let courses = this.studentCourses.filter(x => x.student.id === this.unregisterId).map(x => x.course);
+    return courses;
+  }
+
+  getUnregisterCourse() {
+    let sc = this.studentCourses.find(x => x.id === this.unregisterId);
+    return `[${sc?.course.courseNumber}] ${sc?.course.courseName}`;
+  }
 }
