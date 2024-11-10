@@ -1,0 +1,49 @@
+.confirmation-modal {
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.279);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    padding: 15px;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe; /* Alert color */
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    z-index: 5;
+}
+
+.confirmation-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    & button {
+        min-width: 50px;
+        height: 25px;
+        border: none;
+    }
+}
+
+.no-button {
+    background-color: #d7d7d7;
+}
+
+.yes-button {
+    background-color: #ff0000;
+    color: white;
+}

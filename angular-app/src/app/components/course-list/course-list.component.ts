@@ -2,17 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../../models/types';
 import { CourseService } from '../../services/course.service';
 import { Router } from '@angular/router';
+import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [],
+  imports: [ConfirmationModalComponent],
   templateUrl: './course-list.component.html',
   styleUrl: './course-list.component.scss'
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
   error: string | null = null;
+  deleteRequestId: number = -1;
+  showConfirmation: boolean = false;
   
   constructor(
     private courseService: CourseService,
@@ -63,5 +66,29 @@ export class CourseListComponent implements OnInit {
         this.error = err;
       }
     });
+  }
+
+  getDeleteCourse() {
+    let course = this.courses.find(x => x.id === this.deleteRequestId);
+    return `[${course?.courseNumber}] ${course?.courseName}`;
+  }
+
+  handleDeletePressed(id: number) {
+    // store delete id
+    this.deleteRequestId = id;
+
+    // toggle delete confirmation modal
+    this.showConfirmation = true;
+  }
+
+  handleConfirmResponse(resp: boolean) {
+    this.showConfirmation = false;
+    
+    if(resp) {
+      this.deleteCourse(this.deleteRequestId);
+    }
+
+    this.deleteRequestId = -1;
+
   }
 }

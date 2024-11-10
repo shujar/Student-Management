@@ -10,8 +10,16 @@
             </div>
             <div class="controls">
                 <button (click)="editStudent(s.id ?? -1)" class="edit-button">Edit</button>
-                <button (click)="deleteStudent(s.id ?? -1)" class="delete-button">Delete</button>
+                <button (click)="deletePressed(s.id ?? -1)" class="delete-button">Delete</button>
             </div>
         </div>
+    }
+    @if(showConfirmation) {
+        <app-confirmation-modal (response)="handleModalResponse($event)">
+            <div>
+                <span>{{"Are you sure you want to delete student: "}}</span>
+                <span><strong>{{getDeleteStudent()}}</strong></span>
+            </div>
+        </app-confirmation-modal>
     }
 </div>

@@ -1,0 +1,9 @@
+<div class="confirmation-modal">
+    <div class="confirmation-box">
+        <ng-content/>
+        <div class="confirmation-controls">
+          <button class="no-button" (click)="dialogResponse(false)">No</button>  
+          <button class="yes-button"  (click)="dialogResponse(true)">Yes</button>
+        </div>
+    </div>
+</div>
