@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StudentCourseService } from '../../services/student-course.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { StudentService } from '../../services/student.service';
 import { CourseService } from '../../services/course.service';
 import { Course, Student, StudentCourseData, StudentCoursesExpanded } from '../../models/types';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CreateSnackbarComponent } from '../../components/create-snackbar/create-snackbar.component';
 
 @Component({
   selector: 'app-student-courses-form',
@@ -25,6 +27,7 @@ export class StudentCoursesFormComponent {
     private courseService: CourseService,
     private studentCourseService: StudentCourseService,
     private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.studentCourseForm = this.fb.group({
       student: new FormControl<number|null>(null, [Validators.required]),
@@ -113,7 +116,14 @@ export class StudentCoursesFormComponent {
     const studentCourse = this.studentCourseForm.value;
 
     this.studentCourseService.addStudentCourse(parseInt(studentCourse.student), parseInt(studentCourse.course)).subscribe({
-      next: () => this.router.navigate(["/student-courses"], { skipLocationChange: true }),
+      next: () => {
+        this.snackBar.openFromComponent(CreateSnackbarComponent,  {
+          duration: 500,
+          verticalPosition: 'top',
+        });
+        
+        this.router.navigate(["/student-courses"], { skipLocationChange: true })
+      },
       error: (err) => {
         console.log("Error registering a student course.");
         // form error

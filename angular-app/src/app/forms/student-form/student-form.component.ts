@@ -4,6 +4,8 @@ import { StudentService } from '../../services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrimLeadingWhitespaceDirective } from '../../directives/trim-leading-whitespace.directive';
 import { Student } from '../../models/types';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CreateSnackbarComponent } from '../../components/create-snackbar/create-snackbar.component';
 
 @Component({
   selector: 'app-student-form',
@@ -23,7 +25,8 @@ export class StudentFormComponent implements OnInit {
     private fb: FormBuilder,
     private studentService: StudentService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.studentForm = this.fb.group({
       firstName: ['', [Validators.required]],
@@ -82,13 +85,29 @@ export class StudentFormComponent implements OnInit {
       }
 
       this.studentService.updateStudent(editStudent).subscribe({
-        next: () => this.router.navigate(['/students']),
+        next: () => { 
+          this.snackBar.openFromComponent(CreateSnackbarComponent,  {
+            duration: 500,
+            verticalPosition: 'top',
+          });
+
+          this.router.navigate(['/students'])
+        },
         error: (err) => this.errorMessage = err
       });
     } else {
       this.studentService.addStudent(student).subscribe({
-        next: () => this.router.navigate(['/students']),
-        error: (err) => this.errorMessage = err
+        next: () => {
+          this.snackBar.openFromComponent(CreateSnackbarComponent,  {
+            duration: 500,
+            verticalPosition: 'top',
+          });
+          
+          this.router.navigate(['/students'])
+        },
+        error: (err) => { 
+          this.errorMessage = err
+        }
       });
     }
   }

@@ -3,6 +3,8 @@ import { Course } from '../../models/types';
 import { CourseService } from '../../services/course.service';
 import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeleteSnackbarComponent } from '../delete-snackbar/delete-snackbar.component';
 
 @Component({
   selector: 'app-course-list',
@@ -13,12 +15,12 @@ import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-m
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
-  error: string | null = null;
   deleteRequestId: number = -1;
   showConfirmation: boolean = false;
   
   constructor(
     private courseService: CourseService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
@@ -35,10 +37,13 @@ export class CourseListComponent implements OnInit {
     this.courseService.getCourses().subscribe({
       next: (data) => {
         this.courses = data;
-        this.error = null;
       },
       error: (err) => {
-        this.error = err;
+        this.snackBar.open("Error fetching courses data.", "Close", {
+          duration: 2000,
+          verticalPosition: "top"
+        });
+        console.log("Error fetching courses data: ", err);
       }
     });
   }
@@ -59,11 +64,18 @@ export class CourseListComponent implements OnInit {
 
     this.courseService.deleteCourse(id).subscribe({
       next: () => {
-        this.error = null;
+        this.snackBar.openFromComponent(DeleteSnackbarComponent, {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
         this.getCourses();
       }, 
       error: (err) => {
-        this.error = err;
+        this.snackBar.open("Error deleting course.", "Close", {
+          duration: 2000,
+          verticalPosition: "top"
+        });
+        console.log("Error deleting course: ", err);
       }
     });
   }

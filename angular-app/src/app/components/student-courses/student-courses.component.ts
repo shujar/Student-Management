@@ -3,6 +3,9 @@ import { StudentCourseData, StudentCoursesExpanded } from '../../models/types';
 import { StudentCourseService } from '../../services/student-course.service';
 import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UnregisterSnackbarComponent } from '../unregister-snackbar/unregister-snackbar.component';
+import { UnregisterErrorSnackbarComponent } from '../unregister-error-snackbar/unregister-error-snackbar.component';
 
 @Component({
   selector: 'app-student-courses',
@@ -13,13 +16,13 @@ import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-m
 })
 export class StudentCoursesComponent implements OnInit {
   studentCourses: StudentCoursesExpanded[] = [];
-  error: string | null = null;
   unregisterId: number = -1;
   showConfirmation: boolean = false;
   showStudentConfirmation: boolean = false;
 
   constructor(
     private studentCourseService: StudentCourseService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
@@ -35,10 +38,13 @@ export class StudentCoursesComponent implements OnInit {
     this.studentCourseService.getAllStudentCourses().subscribe({
       next: (data) => {
         this.studentCourses = data;
-        this.error = null;
       },
       error: (err) => {
-        this.error = err;
+        this.snackBar.open("Error fetching student courses data.", "Close", {
+          duration: 2000,
+          verticalPosition: "top"
+        });
+        console.log("Error fetching student courses data: ", err);
       }
     });
   }
@@ -68,10 +74,17 @@ export class StudentCoursesComponent implements OnInit {
 
     this.studentCourseService.deleteBatchStudentCourses(ids).subscribe({
       next: () => {
+        this.snackBar.openFromComponent(UnregisterSnackbarComponent, {
+          duration: 1000,
+          verticalPosition: 'top'
+        });
         this.getStudentCourses();
       },
       error: (err) => {
-        // TODO show error
+        this.snackBar.openFromComponent(UnregisterErrorSnackbarComponent, {
+          duration: 2000,
+          verticalPosition: 'top'
+        });
         console.log("Error unregistering all classes for student id: ", studentId, err);
       }
     });
@@ -84,10 +97,17 @@ export class StudentCoursesComponent implements OnInit {
 
     this.studentCourseService.deleteStudentCourse(studentCourseId).subscribe({
       next: () => {
+        this.snackBar.openFromComponent(UnregisterSnackbarComponent, {
+          duration: 1000,
+          verticalPosition: 'top'
+        });
         this.getStudentCourses();
       },
       error: (err) => {
-        //TODO handle errors
+        this.snackBar.openFromComponent(UnregisterErrorSnackbarComponent, {
+          duration: 2000,
+          verticalPosition: 'top'
+        });
         console.log("Error unregistering student course: ", studentCourseId, err);
       }
     })
