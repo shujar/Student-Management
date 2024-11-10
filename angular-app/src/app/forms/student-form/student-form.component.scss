@@ -3,6 +3,12 @@
     flex-direction: column;
     gap: 10px;
     padding: 5px;
+
+    & .form-header {
+        font-size: 20px;
+        font-weight: bold;
+        padding-bottom: 10px;
+    }
 }
 
 .form-inputs {

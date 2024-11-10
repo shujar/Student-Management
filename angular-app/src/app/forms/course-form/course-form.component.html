@@ -1,4 +1,5 @@
 <form class="course-form" [formGroup]="courseForm" (ngSubmit)="onSubmit()"> 
+    <div class="form-header">{{ isEditMode ? 'Edit' : 'Create'}} Course</div>
     <div class="form-inputs">
         @if(errorMessage) {
             <div class="error">{{ errorMessage }}</div>
