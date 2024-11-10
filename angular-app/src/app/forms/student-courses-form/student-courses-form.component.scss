@@ -11,6 +11,17 @@
     }
 }
 
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.error {
+    font-size: 14px;
+    color: red;
+}
+
 .form-control-buttons {
     display: flex;
     gap: 15px;

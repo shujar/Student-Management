@@ -1,6 +1,9 @@
 <form class="student-course-form" [formGroup]="studentCourseForm" (ngSubmit)="onSubmit()"> 
     <div class="form-header">Register Student Course</div>
     <div class="form-inputs">
+        @if(errorMessage) {
+            <div class="error">{{ errorMessage }}</div>
+        }
         <div>
             <label>Student:</label>
             <select formControlName="student" >
@@ -9,19 +12,19 @@
                 }
             </select>
           @if(studentCourseForm.get('student')?.invalid && studentCourseForm.get('student')?.touched) { 
-              <div>Student is required.</div>
+              <div class="error">Student is required.</div>
           }
         </div>
     
         <div>
             <label>Course:</label>
-            <select formControlName="course" >
+            <select formControlName="course" multiple >
                 @for(course of filterStudentCourses(); track course.id) {
                     <option value="{{course.id}}">[{{course.courseNumber}}] {{course.courseName}}</option>
                 }
             </select>
             @if(studentCourseForm.get('course')?.invalid && studentCourseForm.get('course')?.touched) { 
-                <div>Course is required.</div>
+                <div class="error">Course selection is required.</div>
             }
         </div>
     </div>

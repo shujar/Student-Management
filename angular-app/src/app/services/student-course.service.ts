@@ -25,8 +25,16 @@ export class StudentCourseService {
   }
 
   // Add a course to a student
-  addStudentCourse(studentId: number, courseId: number): Observable<StudentCourses> {
+  registerStudentCourse(studentId: number, courseId: number): Observable<StudentCourses> {
     return this.http.post<StudentCourses>(this.apiUrl, {studentId: studentId, courseId: courseId}).pipe(catchError(this.handleError));
+  }
+
+  registerBatchStudentCourses(studentId: number, courseIds: number[]): Observable<StudentCourses[]> {
+    // Create an array of DELETE requests, one for each ID
+    const registerRequests = courseIds.map(id => this.registerStudentCourse(studentId, id));
+
+    // execute all DELETE requests in parallel
+    return forkJoin(registerRequests);
   }
 
   // Delete a student course
