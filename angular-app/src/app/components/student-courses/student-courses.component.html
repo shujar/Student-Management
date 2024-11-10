@@ -1,6 +1,8 @@
 <div class="students-courses">
     <div class="controls">
-        <button (click)="registerStudentCourse()">Add New</button>
+        <button class="add-button" (click)="registerStudentCourse()" matTooltip="Register Student Course" matTooltipPosition="below" matTooltipShowDelay="1000" >
+            <mat-icon aria-hidden="false" aria-label="Register Student Course" fontIcon="add"/>
+        </button>
     </div>
     @for(sc of getCoursesByStudent(studentCourses); track sc.student.id) {
         <div class="student-card">
@@ -22,9 +24,10 @@
                                 <div class="course-name">
                                     [{{course.courseNumber}}] - {{course.courseName}}
                                 </div>
-                                <div class="course-controls">
-                                    <button (click)="handleCourseUnregisterPress(sc.student.id ?? -1, course.id ?? -1)" class="delete-button">Unregister</button>
-                                </div>
+                                    <!-- <button (click)="handleCourseUnregisterPress(sc.student.id ?? -1, course.id ?? -1)" class="delete-button">Unregister</button> -->
+                                    <a class="icon unregister-course-button" matTooltip="Unregister Course" matTooltipPosition="above" matTooltipShowDelay="1000"  (click)="handleCourseUnregisterPress(sc.student.id ?? -1, course.id ?? -1)">
+                                        <mat-icon aria-hidden="false" aria-label="Unregister Student" fontIcon="close"/>
+                                    </a>
                             </div>
                         }
                     </div>

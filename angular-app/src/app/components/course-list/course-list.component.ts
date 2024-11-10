@@ -5,11 +5,13 @@ import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteSnackbarComponent } from '../delete-snackbar/delete-snackbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [ConfirmationModalComponent],
+  imports: [ConfirmationModalComponent, MatIconModule, MatTooltipModule],
   templateUrl: './course-list.component.html',
   styleUrl: './course-list.component.scss'
 })

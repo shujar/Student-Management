@@ -6,11 +6,13 @@ import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-m
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UnregisterSnackbarComponent } from '../unregister-snackbar/unregister-snackbar.component';
 import { UnregisterErrorSnackbarComponent } from '../unregister-error-snackbar/unregister-error-snackbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-student-courses',
   standalone: true,
-  imports: [ConfirmationModalComponent],
+  imports: [ConfirmationModalComponent, MatIconModule, MatTooltipModule],
   templateUrl: './student-courses.component.html',
   styleUrl: './student-courses.component.scss'
 })
