@@ -17,6 +17,7 @@ import { CreateSnackbarComponent } from '../../components/create-snackbar/create
 })
 export class StudentCoursesFormComponent {
   studentCourseForm: FormGroup;
+  errorMessage?: string;
   studentCourses: StudentCourseData[] = [];
   students: Student[] = [];
   courses: Course[] = [];
@@ -30,8 +31,8 @@ export class StudentCoursesFormComponent {
     private snackBar: MatSnackBar
   ) {
     this.studentCourseForm = this.fb.group({
-      student: new FormControl<number|null>(null, [Validators.required]),
-      course: new FormControl<number|null>(null, [Validators.required])
+      student: new FormControl(null, [Validators.required]),
+      course: new FormControl([], [Validators.required])
     });
   }
 
@@ -101,7 +102,6 @@ export class StudentCoursesFormComponent {
       let courses = this.studentCourses.find(x => x.student.id === parseInt(studentId))
 
       if(courses) {
-        console.log("What is courses: ", courses.courses);
         // get a list of the registered courses for this student
         let studentCourseIds = courses.courses.map(x => x.id);
         // only return courses that are not already registered by the selected student
@@ -114,19 +114,21 @@ export class StudentCoursesFormComponent {
 
   onSubmit() {
     const studentCourse = this.studentCourseForm.value;
+    let courseIds = studentCourse.course.map((x: string) => parseInt(x));
 
-    this.studentCourseService.addStudentCourse(parseInt(studentCourse.student), parseInt(studentCourse.course)).subscribe({
+    this.studentCourseService.registerBatchStudentCourses(parseInt(studentCourse.student), courseIds).subscribe({
       next: () => {
+        this.errorMessage = undefined;
         this.snackBar.openFromComponent(CreateSnackbarComponent,  {
-          duration: 500,
+          duration: 1000,
           verticalPosition: 'top',
-        });
+        }).containerInstance.detach();
         
         this.router.navigate(["/student-courses"], { skipLocationChange: true })
       },
       error: (err) => {
-        console.log("Error registering a student course.");
-        // form error
+        console.log("Error registering a student course.", err);
+        this.errorMessage = err;
       }
     });
   }
