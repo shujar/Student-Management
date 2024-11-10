@@ -1,0 +1,11 @@
+.snackbar {
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+} 
+  
+button {
+    background-color: transparent;
+    border: none;
+    color: rgb(12, 214, 255);
+}

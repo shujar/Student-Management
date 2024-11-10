@@ -4,6 +4,8 @@ import { CourseService } from '../../services/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrimLeadingWhitespaceDirective } from '../../directives/trim-leading-whitespace.directive';
 import { Course } from '../../models/types';
+import { CreateSnackbarComponent } from '../../components/create-snackbar/create-snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-course-form',
@@ -23,7 +25,8 @@ export class CourseFormComponent {
     private fb: FormBuilder,
     private courseService: CourseService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.courseForm = this.fb.group({
       courseName: ['', [Validators.required]],
@@ -85,12 +88,26 @@ export class CourseFormComponent {
       }
 
       this.courseService.updateCourse(editCourse).subscribe({
-        next: () => this.router.navigate(['/courses'], { skipLocationChange: true }),
+        next: () => {
+          this.snackBar.openFromComponent(CreateSnackbarComponent,  {
+            duration: 500,
+            verticalPosition: 'top',
+          });
+          
+          this.router.navigate(['/courses'], { skipLocationChange: true })
+        },  
         error: (err) => this.errorMessage = err
       });
     } else {
       this.courseService.addCourse(course).subscribe({
-        next: () => this.router.navigate(['/courses'], { skipLocationChange: true }),
+        next: () => {
+          this.snackBar.openFromComponent(CreateSnackbarComponent,  {
+            duration: 500,
+            verticalPosition: 'top',
+          });
+
+          this.router.navigate(['/courses'], { skipLocationChange: true })
+        },
         error: (err) => this.errorMessage = err
       });
     }

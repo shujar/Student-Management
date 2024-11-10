@@ -3,6 +3,8 @@ import { StudentCourseData, StudentCoursesExpanded } from '../../models/types';
 import { StudentCourseService } from '../../services/student-course.service';
 import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UnregisterSnackbarComponent } from '../unregister-snackbar/unregister-snackbar.component';
 
 @Component({
   selector: 'app-student-courses',
@@ -20,6 +22,7 @@ export class StudentCoursesComponent implements OnInit {
 
   constructor(
     private studentCourseService: StudentCourseService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
@@ -68,6 +71,10 @@ export class StudentCoursesComponent implements OnInit {
 
     this.studentCourseService.deleteBatchStudentCourses(ids).subscribe({
       next: () => {
+        this.snackBar.openFromComponent(UnregisterSnackbarComponent, {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
         this.getStudentCourses();
       },
       error: (err) => {
@@ -84,6 +91,10 @@ export class StudentCoursesComponent implements OnInit {
 
     this.studentCourseService.deleteStudentCourse(studentCourseId).subscribe({
       next: () => {
+        this.snackBar.openFromComponent(UnregisterSnackbarComponent, {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
         this.getStudentCourses();
       },
       error: (err) => {

@@ -3,11 +3,13 @@ import { StudentService } from '../../services/student.service';
 import { Student } from '../../models/types';
 import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
+import { MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { DeleteSnackbarComponent } from '../delete-snackbar/delete-snackbar.component';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [ConfirmationModalComponent],
+  imports: [ConfirmationModalComponent, MatSnackBarModule],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.scss'
 })
@@ -17,9 +19,10 @@ export class StudentListComponent implements OnInit {
   deleteRequestId: number = -1;
   showConfirmation: boolean = false;
   confirmationMessage: string = "";
-  
+
   constructor(
     private studentService: StudentService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
@@ -61,6 +64,10 @@ export class StudentListComponent implements OnInit {
     this.studentService.deleteStudent(id).subscribe({
       next: () => {
         this.error = null;
+        this.snackBar.openFromComponent(DeleteSnackbarComponent, {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
         this.getStudents();
       }, 
       error: (err) => {
