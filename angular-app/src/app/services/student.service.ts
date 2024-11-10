@@ -39,6 +39,6 @@ export class StudentService {
   // Error handling
   private handleError(error: HttpErrorResponse) {
     console.error('Server Error:', error);
-    return throwError('Unable to complete the request. Please try again later.');
+    return throwError(() => 'Unable to complete the request. Please try again later.');
   }
 }

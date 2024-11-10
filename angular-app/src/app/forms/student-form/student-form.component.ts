@@ -105,7 +105,9 @@ export class StudentFormComponent implements OnInit {
           
           this.router.navigate(['/students'])
         },
-        error: (err) => this.errorMessage = err
+        error: (err) => { 
+          this.errorMessage = err
+        }
       });
     }
   }

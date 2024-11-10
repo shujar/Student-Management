@@ -15,7 +15,6 @@ import { DeleteSnackbarComponent } from '../delete-snackbar/delete-snackbar.comp
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
-  error: string | null = null;
   deleteRequestId: number = -1;
   showConfirmation: boolean = false;
   
@@ -38,10 +37,13 @@ export class CourseListComponent implements OnInit {
     this.courseService.getCourses().subscribe({
       next: (data) => {
         this.courses = data;
-        this.error = null;
       },
       error: (err) => {
-        this.error = err;
+        this.snackBar.open("Error fetching courses data.", "Close", {
+          duration: 2000,
+          verticalPosition: "top"
+        });
+        console.log("Error fetching courses data: ", err);
       }
     });
   }
@@ -62,7 +64,6 @@ export class CourseListComponent implements OnInit {
 
     this.courseService.deleteCourse(id).subscribe({
       next: () => {
-        this.error = null;
         this.snackBar.openFromComponent(DeleteSnackbarComponent, {
           duration: 3000,
           verticalPosition: 'top'
@@ -70,7 +71,11 @@ export class CourseListComponent implements OnInit {
         this.getCourses();
       }, 
       error: (err) => {
-        this.error = err;
+        this.snackBar.open("Error deleting course.", "Close", {
+          duration: 2000,
+          verticalPosition: "top"
+        });
+        console.log("Error deleting course: ", err);
       }
     });
   }
