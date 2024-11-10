@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentCourseData, StudentCoursesExpanded } from '../../models/types';
-import { StudentCourseService } from '../../services/student-course.service';
+import { StudentRegistrationService } from '../../services/student-registration.service';
 import { Router } from '@angular/router';
 import { ConfirmationModalComponent } from "../confirmation-modal/confirmation-modal.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,20 +10,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-student-courses',
+  selector: 'app-student-registration',
   standalone: true,
   imports: [ConfirmationModalComponent, MatIconModule, MatTooltipModule],
-  templateUrl: './student-courses.component.html',
-  styleUrl: './student-courses.component.scss'
+  templateUrl: './student-registration.component.html',
+  styleUrl: './student-registration.component.scss'
 })
-export class StudentCoursesComponent implements OnInit {
+export class StudentRegistrationComponent implements OnInit {
   studentCourses: StudentCoursesExpanded[] = [];
   unregisterId: number = -1;
   showConfirmation: boolean = false;
   showStudentConfirmation: boolean = false;
 
   constructor(
-    private studentCourseService: StudentCourseService,
+    private studentCourseService: StudentRegistrationService,
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
@@ -33,7 +33,7 @@ export class StudentCoursesComponent implements OnInit {
   }
 
   registerStudentCourse() {
-    this.router.navigate(['/student-courses/add'], { skipLocationChange: true });
+    this.router.navigate(['/student-registration/add'], { skipLocationChange: true });
   }
 
   getStudentCourses(): void {

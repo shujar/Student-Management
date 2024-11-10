@@ -6,7 +6,7 @@ import { StudentCourses, StudentCoursesExpanded } from '../models/types';
 @Injectable({
   providedIn: 'root'
 })
-export class StudentCourseService {
+export class StudentRegistrationService {
   private apiUrl = 'http://localhost:6001/studentCourses';
 
   constructor(private http: HttpClient) {}
@@ -14,14 +14,6 @@ export class StudentCourseService {
   // Get all students
   getAllStudentCourses(): Observable<StudentCoursesExpanded[]> {
     return this.http.get<StudentCoursesExpanded[]>(`${this.apiUrl}/?&_expand=course&_expand=student`).pipe(catchError(this.handleError));
-  }
-
-  /**
-   * get all courses for a student
-   * @param id 
-   */
-  getStudentCourseByStudentId(id: number) {
-    return this.http.get<StudentCoursesExpanded>(`${this.apiUrl}/?studentId=${id}&_expand=course&_expand=student`).pipe(catchError(this.handleError));
   }
 
   // Add a course to a student
