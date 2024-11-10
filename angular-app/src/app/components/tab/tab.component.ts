@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 export enum TabOptions {
   STUDENTS,
   COURSES,
-  STUDENT_COURSES
+  STUDENT_REGISTRATION
 }
 
 @Component({
@@ -50,7 +50,7 @@ export class TabComponent implements OnInit {
     } else if(TabOptions.COURSES === tab) {
       this.router.navigate(['/courses']);
     } else {
-      this.router.navigate(['/student-courses']);
+      this.router.navigate(['/student-registration']);
     }
   }
 }

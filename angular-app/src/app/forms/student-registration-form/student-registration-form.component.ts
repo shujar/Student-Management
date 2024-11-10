@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { StudentCourseService } from '../../services/student-course.service';
+import { StudentRegistrationService } from '../../services/student-registration.service';
 import { Router } from '@angular/router';
 import { StudentService } from '../../services/student.service';
 import { CourseService } from '../../services/course.service';
@@ -9,13 +9,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateSnackbarComponent } from '../../components/create-snackbar/create-snackbar.component';
 
 @Component({
-  selector: 'app-student-courses-form',
+  selector: 'app-student-registration-form',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './student-courses-form.component.html',
-  styleUrl: './student-courses-form.component.scss'
+  templateUrl: './student-registration-form.component.html',
+  styleUrl: './student-registration-form.component.scss'
 })
-export class StudentCoursesFormComponent {
+export class StudentRegistrationFormComponent {
   studentCourseForm: FormGroup;
   errorMessage?: string;
   studentCourses: StudentCourseData[] = [];
@@ -26,7 +26,7 @@ export class StudentCoursesFormComponent {
     private fb: FormBuilder,
     private studentService: StudentService,
     private courseService: CourseService,
-    private studentCourseService: StudentCourseService,
+    private studentCourseService: StudentRegistrationService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {
@@ -124,7 +124,7 @@ export class StudentCoursesFormComponent {
           verticalPosition: 'top',
         }).containerInstance.detach();
         
-        this.router.navigate(["/student-courses"], { skipLocationChange: true })
+        this.router.navigate(["/student-registration"], { skipLocationChange: true })
       },
       error: (err) => {
         console.log("Error registering a student course.", err);
@@ -136,6 +136,6 @@ export class StudentCoursesFormComponent {
   cancelForm() {
     console.log("StudentRegistration form canceled.")
     this.studentCourseForm.reset();
-    this.router.navigate(['/student-courses'], { skipLocationChange: true });
+    this.router.navigate(['/student-registration'], { skipLocationChange: true });
   }
 }
