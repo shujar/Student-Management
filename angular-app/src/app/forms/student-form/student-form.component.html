@@ -33,7 +33,7 @@
         <button type="submit" [disabled]="studentForm.invalid || studentForm.pristine">
           {{ isEditMode ? 'Update' : 'Add' }} Student
         </button>
-        <button (click)="resetForm()" [disabled]="studentForm.pristine">Reset</button>
-        <button (click)="cancelForm()">Cancel</button>
+        <button type="button" (click)="resetForm()" [disabled]="studentForm.pristine">Reset</button>
+        <button type="button" (click)="cancelForm()">Cancel</button>
     </div>
 </form>

@@ -134,6 +134,7 @@ export class StudentCoursesFormComponent {
   }
 
   cancelForm() {
+    console.log("StudentRegistration form canceled.")
     this.studentCourseForm.reset();
     this.router.navigate(['/student-courses'], { skipLocationChange: true });
   }

@@ -1,8 +1,11 @@
 <div class="students-courses">
-    <div class="controls">
-        <button class="add-button" (click)="registerStudentCourse()" matTooltip="Register Student Course" matTooltipPosition="below" matTooltipShowDelay="1000" >
-            <mat-icon aria-hidden="false" aria-label="Register Student Course" fontIcon="add"/>
-        </button>
+    <div class="registration-header-container">
+        <div class="controls">
+            <button class="add-button" (click)="registerStudentCourse()" matTooltip="Register Student Course" matTooltipPosition="below" matTooltipShowDelay="1000" >
+                <mat-icon aria-hidden="false" aria-label="Register Student Course" fontIcon="add"/>
+            </button>
+        </div>
+        <div class="registration-header">Student Registration</div>
     </div>
     @for(sc of getCoursesByStudent(studentCourses); track sc.student.id) {
         <div class="student-card">
