@@ -1,8 +1,11 @@
 <div class="students">
-    <div class="controls">
-        <button class="add-button" matTooltip="Add Student" matTooltipPosition="below" matTooltipShowDelay="1000" (click)="addNewStudent()">
-            <mat-icon aria-hidden="false" aria-label="Add Student" fontIcon="add"/>
-        </button>
+    <div class="student-header-container">
+        <div class="controls">
+            <button class="add-button" matTooltip="Add Student" matTooltipPosition="below" matTooltipShowDelay="1000" (click)="addNewStudent()">
+                <mat-icon aria-hidden="false" aria-label="Add Student" fontIcon="add"/>
+            </button>
+        </div>
+        <div class="student-header">Students</div>
     </div>
     @for(s of students; track $index) {
         <div class="student-card">
